@@ -49,6 +49,7 @@ import Login from "../Components/login";
 import Home from "../Components/Home";
 import LoggedIn from "../Components/LoggedIn";
 import Breeds from "../Components/Breeds";
+import SearchDogs from "../Components/SearchDogs";
 
 const AppRoutes = () => {
   return (
@@ -57,6 +58,7 @@ const AppRoutes = () => {
       <Route path="/" element={<LoggedIn />}>
         <Route path="/" element={<Home />} />
         <Route path="/breeds" element={<Breeds />} />
+        <Route path="/searchDogs" element={<Breeds />} />
       </Route>
     </Routes>
   );
