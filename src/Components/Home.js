@@ -2,16 +2,23 @@ import React, {useContext} from "react";
 
 import { AuthContext } from "../context/AuthContext";
 
-
+import { useNavigate } from "react-router-dom";
 const Home = () => {
+const navigate = useNavigate()
 
+
+const handleGetBreeds = ()=>{
+
+     navigate('/breeds')
+}
     
      const { logout, user } = useContext(AuthContext);
   return (
     <div>
-      <div> Puppy Picker</div>
-      <div>hello {user.name}</div>
-      <button onClick={logout}>Logout</button>
+      {/* <div>hello {user.name}</div> */}
+
+<h1>Welcome</h1>
+<button onClick={handleGetBreeds}>Get breeds</button>
     </div>
   );
 

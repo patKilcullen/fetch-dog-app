@@ -48,6 +48,7 @@ import { Routes, Route } from "react-router-dom";
 import Login from "../Components/login";
 import Home from "../Components/Home";
 import LoggedIn from "../Components/LoggedIn";
+import Breeds from "../Components/Breeds";
 
 const AppRoutes = () => {
   return (
@@ -55,8 +56,7 @@ const AppRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<LoggedIn />}>
         <Route path="/" element={<Home />} />
-
-        
+        <Route path="/breeds" element={<Breeds />} />
       </Route>
     </Routes>
   );
