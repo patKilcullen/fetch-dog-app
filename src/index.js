@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { AuthProvider } from "./context/AuthContext.js";
+import AppContextProvider from "./context/AppContext.js";
 import { BrowserRouter as Router } from "react-router-dom";
 
 import { Provider } from "react-redux";
@@ -12,12 +13,11 @@ import store from "./redux/store";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    
-    <AuthProvider>
+    <AppContextProvider>
       <Router>
         <App />
       </Router>
-    </AuthProvider>
+    </AppContextProvider>
   </React.StrictMode>
 );
 

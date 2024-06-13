@@ -7,10 +7,9 @@ import { AuthContext } from "../context/AuthContext";
 const Navbar = () => {
 const { logout, user } = useContext(AuthContext);
 
-  const navigate = useNavigate();
+
   const logoutAndRedirectHome = () => {
-    // dispatch(logout());
-    // navigate('/login');
+
     logout()
   };
 
@@ -21,7 +20,8 @@ const { logout, user } = useContext(AuthContext);
       <nav>
         <div>
           {/* The navbar will show these links after you log in */}
-          <Link to="/">Home</Link>
+          <Link to="/">Search</Link>
+          <Link to="/favorites">Favorites</Link>
           <button type="button" onClick={logoutAndRedirectHome}>
             Logout
           </button>

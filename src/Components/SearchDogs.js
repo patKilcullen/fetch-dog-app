@@ -208,8 +208,10 @@
 
 // export default SearchDogs;
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axiosInstance from "../utils/axiosConfig";
+
+import { FavoritesContext } from "../context/FavoritesContext";
 
 const SearchDogs = () => {
   const [breedList, setBreedList] = useState([]);
@@ -221,6 +223,9 @@ const SearchDogs = () => {
   const [size, setSize] = useState(25);
   const [from, setFrom] = useState(0);
 
+
+
+    const { addFavorite } = useContext(FavoritesContext);
   useEffect(() => {
     fetchBreeds();
     fetchResults();
@@ -232,6 +237,7 @@ const SearchDogs = () => {
       setBreedList(response.data);
     } catch (error) {
       console.log("Failed to fetch breeds");
+      setError(error)
     }
   };
 
@@ -279,6 +285,10 @@ const SearchDogs = () => {
       selectedBreeds.filter((breed) => breed !== breedToRemove)
     );
   };
+
+  const handleSaveDog = (dog) =>{
+    addFavorite(dog)
+  }
 
   return (
     <div>
@@ -336,6 +346,7 @@ const SearchDogs = () => {
               <div>{dog.breed}</div>
               <div>Age: {dog.age}</div>
               <div>Zip: {dog.zip_code}</div>
+              <button onClick={()=>handleSaveDog(dog)}>Save</button>
             </li>
           ))}
         </ul>
