@@ -51,15 +51,17 @@ import LoggedIn from "../Components/LoggedIn";
 import Breeds from "../Components/Breeds";
 import SearchDogs from "../Components/SearchDogs";
 import Favorites from "../Components/Favorites";
+import SingleDogPage from "../Components/SingleDogPage"
 const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<LoggedIn />}>
         <Route path="/" element={<Home />} />
-        <Route path="/breeds" element={<Breeds />} />
-        <Route path="/searchDogs" element={<SearchDogs />} />
+        {/* <Route path="/breeds" element={<Breeds />} /> */}
+        {/* <Route path="/searchDogs" element={<SearchDogs />} /> */}
         <Route path="/favorites" element={<Favorites />} />
+        <Route path="/dog/:id" element={<SingleDogPage />} />
       </Route>
     </Routes>
   );

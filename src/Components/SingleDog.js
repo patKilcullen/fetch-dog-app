@@ -1,5 +1,6 @@
 import React, {useContext, useState, useEffect} from "react";
 
+
 import { FavoritesContext } from "../context/FavoritesContext";
 
 
@@ -7,6 +8,8 @@ const SingleDog = ({dog, saved, match}) => {
    const { addFavorite, removeFavorite, favorites } = useContext(FavoritesContext);
    const [disableSave, setDisableSave] = useState(false)
    const [isFavorite, setIsFavorite] = useState(false)
+ 
+
 
    useEffect(()=>{
     if(favorites.some((favorite) => favorite.id === dog.id)){

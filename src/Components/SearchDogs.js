@@ -210,6 +210,7 @@
 
 import React, { useState, useEffect, useContext } from "react";
 import axiosInstance from "../utils/axiosConfig";
+import { Link } from "react-router-dom";
 
 import { FavoritesContext } from "../context/FavoritesContext";
 
@@ -393,7 +394,9 @@ const SearchDogs = () => {
         {results.map((dog) => (
           //   <div key={dog.id}>
           <div key={dog}>
-            <SingleDog dog={dog} saved={false} />
+            <Link to={`/dog/${dog.id}`}>
+              <SingleDog dog={dog} saved={false} />
+            </Link>
           </div>
         ))}
 
