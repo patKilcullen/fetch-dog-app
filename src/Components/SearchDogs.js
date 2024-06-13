@@ -216,6 +216,8 @@ import { FavoritesContext } from "../context/FavoritesContext";
 
 import SingleDog from "./SingleDog";
 
+import LocationSearch from "./LocationSearch";
+
 const SearchDogs = () => {
   const [breedList, setBreedList] = useState([]);
   const [selectedBreeds, setSelectedBreeds] = useState([]);
@@ -233,11 +235,20 @@ const SearchDogs = () => {
      const [sort, setSort] = useState("breed:asc");
 
 
-    const { addFavorite } = useContext(FavoritesContext);
+
+     const [locations, setLocations] = useState([]);
+
+       const handleLocationSearch = (locations) => {
+        
+          setLocations(locations);
+       };
+
+
+
   useEffect(() => {
     fetchBreeds();
     fetchResults();
-  }, [selectedBreeds, from, sort, zipCodes,ageMax,ageMin]);
+  }, [selectedBreeds, from, sort,ageMax,ageMin, locations]);
   
 
   const fetchBreeds = async () => {
@@ -258,7 +269,7 @@ const SearchDogs = () => {
       breeds: selectedBreeds,
       size,
       from,
-      zipCodes,
+      zipCodes: locations,
       ageMin,
       ageMax,
       sort
@@ -301,9 +312,9 @@ const SearchDogs = () => {
     );
   };
 
-  const handleSaveDog = (dog) =>{
-    addFavorite(dog)
-  }
+
+  
+
 
   return (
     <div>
@@ -344,14 +355,15 @@ const SearchDogs = () => {
           </select>
         </div>
 
-        <div>
+        {/* <div>
           <label>Zip Codes:</label>
           <input
             type="text"
             value={zipCodes}
             onChange={(e) => setZipCodes(e.target.value.split(","))}
           />
-        </div>
+        </div> */}
+
         <div>
           <label>Min Age:</label>
           <input
@@ -371,6 +383,7 @@ const SearchDogs = () => {
 
         <button type="submit">Search</button>
       </form>
+      <LocationSearch search={handleLocationSearch} />
 
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
