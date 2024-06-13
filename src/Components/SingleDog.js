@@ -3,9 +3,11 @@ import React, {useContext, useState} from "react";
 import { FavoritesContext } from "../context/FavoritesContext";
 
 
-const SingleDog = ({dog, saved}) => {
+const SingleDog = ({dog, saved, match}) => {
    const { addFavorite, removeFavorite } = useContext(FavoritesContext);
    const [disableSave, setDisableSave] = useState(false)
+
+   
 
     const handleSaveDog = () =>{
           addFavorite(dog);
@@ -25,6 +27,7 @@ const SingleDog = ({dog, saved}) => {
       <div>Zip: {dog.zip_code}</div>
       {!saved ? <button onClick={handleSaveDog} disabled={disableSave}>Save</button>
       :<button onClick={handleRemoveDog}>Remove</button>}
+      
     </div>
   );};
 

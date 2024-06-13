@@ -265,6 +265,8 @@ const SearchDogs = () => {
 
       const dogResponse = await axiosInstance.post("/dogs", resultIds);
       setResults(dogResponse.data);
+         
+        
       setTotal(total);
     } catch (error) {
       setError("Failed to fetch results");
@@ -373,7 +375,8 @@ const SearchDogs = () => {
         <p>Total: {total}</p>
 
         {results.map((dog) => (
-          <div key={dog.id}>
+          //   <div key={dog.id}>
+          <div key={dog}>
             <SingleDog dog={dog} saved={false} />
           </div>
         ))}
