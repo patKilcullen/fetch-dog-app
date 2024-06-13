@@ -3,20 +3,21 @@ import React, {useContext} from "react";
 
 import { FavoritesContext } from "../context/FavoritesContext";
 
+import SingleDog from "./SingleDog";
+
 const Favorites = () => {
 
     const { favorites, removeFavorite } = useContext(FavoritesContext);
   return (
     <div>
       <h2>Favorite Dogs</h2>
-      <ul>
-        {favorites.map((dog) => (
-          <li key={dog.id}>
-            {dog.name}
-            <button onClick={() => removeFavorite(dog.id)}>Remove</button>
-          </li>
-        ))}
-      </ul>
+
+
+      {favorites.map((dog) => (
+        <div key={dog.id}>
+          <SingleDog dog={dog} saved={true} />
+        </div>
+      ))}
     </div>
   );
 };

@@ -213,6 +213,8 @@ import axiosInstance from "../utils/axiosConfig";
 
 import { FavoritesContext } from "../context/FavoritesContext";
 
+import SingleDog from "./SingleDog";
+
 const SearchDogs = () => {
   const [breedList, setBreedList] = useState([]);
   const [selectedBreeds, setSelectedBreeds] = useState([]);
@@ -337,19 +339,14 @@ const SearchDogs = () => {
       <div>
         <h1>Pooch Results: </h1>
         <p>Total: {total}</p>
-        <ul>
+    
+        
           {results.map((dog) => (
-            <li key={dog.id}>
-              <h1>{dog.name}</h1>
-              <img src={dog.img} alt={dog.name} />
-
-              <div>{dog.breed}</div>
-              <div>Age: {dog.age}</div>
-              <div>Zip: {dog.zip_code}</div>
-              <button onClick={()=>handleSaveDog(dog)}>Save</button>
-            </li>
+            <div key={dog.id}>
+           <SingleDog dog={dog} saved={false} />
+            </div>
           ))}
-        </ul>
+      
 
         <div>
           <button onClick={handlePrevPage} disabled={from === 0}>
