@@ -26,7 +26,7 @@ setError(error)
         }
 
   return <div>
-    <button onClick={handleGetMatch}>Get Match</button>
+    <button onClick={handleGetMatch}>{matches ? "Try another match" : "Get Match"}</button>
 
 {matches ? <SingleDog dog={matches} match={true}/> : null}
 <div>{error}</div>

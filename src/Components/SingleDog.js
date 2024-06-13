@@ -1,13 +1,20 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useState, useEffect} from "react";
 
 import { FavoritesContext } from "../context/FavoritesContext";
 
 
 const SingleDog = ({dog, saved, match}) => {
-   const { addFavorite, removeFavorite } = useContext(FavoritesContext);
+   const { addFavorite, removeFavorite, favorites } = useContext(FavoritesContext);
    const [disableSave, setDisableSave] = useState(false)
+   const [isFavorite, setIsFavorite] = useState(false)
 
-   
+   useEffect(()=>{
+    if(favorites.some((favorite) => favorite.id === dog.id)){
+
+        setIsFavorite(true)
+    }
+
+   },[favorites])
 
     const handleSaveDog = () =>{
           addFavorite(dog);
@@ -20,14 +27,31 @@ const SingleDog = ({dog, saved, match}) => {
 
   return (
     <div>
+      <h1>{match && "Your match is..."}</h1>
       <h1>{dog.name}</h1>
       <img src={dog.img} alt={dog.name} />
       <div>{dog.breed}</div>
       <div>Age: {dog.age}</div>
       <div>Zip: {dog.zip_code}</div>
-      {!saved ? <button onClick={handleSaveDog} disabled={disableSave}>Save</button>
-      :<button onClick={handleRemoveDog}>Remove</button>}
+      {/* {!saved ? (
+         
+        <button onClick={handleSaveDog} disabled={disableSave || isFavorite}>
+          Save
+        </button>
       
+      ) : (
+        <button onClick={handleRemoveDog}>Remove</button>
+      )} */}
+
+      {!saved && !isFavorite ? (
+        <button onClick={handleSaveDog} disabled={disableSave || isFavorite}>
+          Save
+        </button>
+      ) : !saved && isFavorite ? (
+        <p>heaert</p>
+      ):(
+        <button onClick={handleRemoveDog}>Remove</button>
+      )}
     </div>
   );};
 

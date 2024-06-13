@@ -8,7 +8,9 @@ const FavoritesProvider = ({ children }) => {
   const [matches, setMatches] = useState(null)
 
   const addFavorite = (dog) => {
-    setFavorites([...favorites, dog]);
+     if (!favorites.some((favorite) => favorite.id === dog.id)) {
+       setFavorites([...favorites, dog]);
+     }
   };
 
   const removeFavorite = (dogId) => {
