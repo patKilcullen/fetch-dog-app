@@ -225,6 +225,9 @@ const SearchDogs = () => {
   const [size, setSize] = useState(25);
   const [from, setFrom] = useState(0);
 
+   const [zipCodes, setZipCodes] = useState([]);
+   const [ageMin, setAgeMin] = useState("");
+   const [ageMax, setAgeMax] = useState("");
 
 
     const { addFavorite } = useContext(FavoritesContext);
@@ -251,6 +254,9 @@ const SearchDogs = () => {
       breeds: selectedBreeds,
       size,
       from,
+      zipCodes,
+      ageMin,
+      ageMax
     };
 
     try {
@@ -330,6 +336,32 @@ const SearchDogs = () => {
             ))}
           </select>
         </div>
+
+        <div>
+          <label>Zip Codes:</label>
+          <input
+            type="text"
+            value={zipCodes}
+            onChange={(e) => setZipCodes(e.target.value.split(","))}
+          />
+        </div>
+        <div>
+          <label>Min Age:</label>
+          <input
+            type="number"
+            value={ageMin}
+            onChange={(e) => setAgeMin(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Max Age:</label>
+          <input
+            type="number"
+            value={ageMax}
+            onChange={(e) => setAgeMax(e.target.value)}
+          />
+        </div>
+
         <button type="submit">Search</button>
       </form>
 
@@ -339,14 +371,12 @@ const SearchDogs = () => {
       <div>
         <h1>Pooch Results: </h1>
         <p>Total: {total}</p>
-    
-        
-          {results.map((dog) => (
-            <div key={dog.id}>
-           <SingleDog dog={dog} saved={false} />
-            </div>
-          ))}
-      
+
+        {results.map((dog) => (
+          <div key={dog.id}>
+            <SingleDog dog={dog} saved={false} />
+          </div>
+        ))}
 
         <div>
           <button onClick={handlePrevPage} disabled={from === 0}>
