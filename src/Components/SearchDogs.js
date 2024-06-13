@@ -229,12 +229,15 @@ const SearchDogs = () => {
    const [ageMin, setAgeMin] = useState("");
    const [ageMax, setAgeMax] = useState("");
 
+     const [sort, setSort] = useState("breed:asc");
+
 
     const { addFavorite } = useContext(FavoritesContext);
   useEffect(() => {
     fetchBreeds();
     fetchResults();
-  }, [selectedBreeds, from]);
+  }, [selectedBreeds, from, sort, zipCodes,ageMax,ageMin]);
+  
 
   const fetchBreeds = async () => {
     try {
@@ -256,7 +259,8 @@ const SearchDogs = () => {
       from,
       zipCodes,
       ageMin,
-      ageMax
+      ageMax,
+      sort
     };
 
     try {
@@ -373,6 +377,18 @@ const SearchDogs = () => {
       <div>
         <h1>Pooch Results: </h1>
         <p>Total: {total}</p>
+
+        <div>
+          <label>Sort By:</label>
+          <select value={sort} onChange={(e) => setSort(e.target.value)}>
+            <option value="breed:asc">Breed (A - Z)</option>
+            <option value="breed:desc">Breed (Z - A)</option>
+            <option value="name:asc">Name (A - Z)</option>
+            <option value="name:desc">Name (Z - Z)</option>
+            <option value="age:asc">Age (youngest - oldest)</option>
+            <option value="age:desc">Age (oldest - youngest)</option>
+          </select>
+        </div>
 
         {results.map((dog) => (
           //   <div key={dog.id}>

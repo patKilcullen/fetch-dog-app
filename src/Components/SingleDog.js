@@ -48,7 +48,7 @@ const SingleDog = ({dog, saved, match}) => {
           Save
         </button>
       ) : !saved && isFavorite ? (
-        <p>heaert</p>
+        <p>heart</p>
       ):(
         <button onClick={handleRemoveDog}>Remove</button>
       )}
