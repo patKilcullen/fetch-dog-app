@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AppBar, Toolbar, Typography, Button, Box, Grid } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { AuthContext } from "../context/AuthContext";
+import logo from '../fetch-logo-3.png'
 
 const Navbar = () => {
   const theme = useTheme();
@@ -19,6 +20,24 @@ const Navbar = () => {
   return (
     <AppBar position="fixed" color="secondary">
       <Toolbar sx={{ flexDirection: "column", alignItems: "center" }}>
+        <Box
+          sx={{
+            display: { xs: "none", sm: "block" },
+            position: { xs: "relative", sm: "absolute" },
+            left: { xs: null, sm: theme.spacing() },
+          }}
+        >
+          <img
+            src={logo}
+            alt="Logo"
+            style={{
+              width: "auto",
+              height: "50px",
+
+            }}
+          />
+        </Box>
+
         <Typography
           variant="h3"
           component="div"
@@ -31,8 +50,9 @@ const Navbar = () => {
             textDecoration: "underline",
           }}
         >
-          Puppy Picker
+          Pooch Finder
         </Typography>
+
         <Grid container spacing={2} justifyContent="center">
           {/* SEARCH */}
           <Grid item>
@@ -67,7 +87,12 @@ const Navbar = () => {
           </Grid>
         </Grid>
         {/* LOGOUT: change position depending on scrren size */}
-        <Box sx={{ position:{ xs: "relative", sm: "absolute" },  right: {xs: null, sm: theme.spacing(2) }}}>
+        <Box
+          sx={{
+            position: { xs: "relative", sm: "absolute" },
+            right: { xs: null, sm: theme.spacing(2) },
+          }}
+        >
           <Button
             color="inherit"
             onClick={logoutAndRedirectHome}

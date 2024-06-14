@@ -3,7 +3,7 @@ import { AuthContext } from "../context/AuthContext.js";
 import { useNavigate } from "react-router-dom";
 import { Box, Typography, TextField, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-
+import logo from '../fetch-logo.jpeg'
 const Login = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -39,8 +39,9 @@ const Login = () => {
         padding: 3,
       }}
     >
+      <img src={logo} alt="Logo" style={{ width: "200px", height: "auto" }} />
       <Typography variant="h4" gutterBottom>
-        Log into Pooch Finder
+        Log into Fetch's Pooch Finder
       </Typography>
       <Box
         component="form"
