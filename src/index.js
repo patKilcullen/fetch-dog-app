@@ -10,14 +10,20 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 
+import theme from "./MuiTheme.js";
+import { ThemeProvider } from "@mui/material/styles";
+
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <AppContextProvider>
-      <Router>
-        <App />
-      </Router>
-    </AppContextProvider>
+    <ThemeProvider theme={theme}>
+      <AppContextProvider>
+        <Router>
+          <App />
+        </Router>
+      </AppContextProvider>
+    </ThemeProvider>
   </React.StrictMode>
 );
 
