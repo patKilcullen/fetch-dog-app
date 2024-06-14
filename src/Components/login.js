@@ -7,15 +7,20 @@ import { useTheme } from "@mui/material/styles";
 const Login = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [error, setError] = useState("")
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
   const theme = useTheme();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    try{
     await login(name, email);
- 
-    navigate("/");
+      navigate("/");
+    }catch(error){
+
+    }
+  
   };
 
   return (
@@ -68,6 +73,7 @@ const Login = () => {
         <Button type="submit" variant="contained" color="primary" fullWidth>
           Login
         </Button>
+        {error && {error}}
       </Box>
     </Box>
   );

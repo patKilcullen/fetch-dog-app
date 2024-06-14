@@ -61,7 +61,7 @@ const Navbar = () => {
             </Button>
           </Grid>
         </Grid>
-        <Box sx={{ position: "absolute", right: theme.spacing(2) }}>
+        <Box sx={{ position:{ xs: "relative", sm: "absolute" },  right: {xs: null, sm: theme.spacing(2) }}}>
           <Button
             color="inherit"
             onClick={logoutAndRedirectHome}
