@@ -28,7 +28,7 @@ const Search = ({
   };
 
   return (
-    <Box sx={{width: "40vw"}}>
+    <Box sx={{ width: "40vw" }}>
       <form onSubmit={handleSubmit}>
         <h1>Search Dogs: </h1>
         <Box>

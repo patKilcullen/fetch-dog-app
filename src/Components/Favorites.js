@@ -1,32 +1,16 @@
-import React, {useContext} from "react";
-
+import React, { useContext } from "react";
 
 import { FavoritesContext } from "../context/FavoritesContext";
 
 import SingleDog from "./SingleDog";
 import FindMatch from "./FindMatch";
 
-import {
-  Typography,
-  Button,
-  Select,
-  MenuItem,
-  TextField,
-  FormControl,
-  InputLabel,
-  Grid,
-  Box,
-  CircularProgress,
-  Alert,
-  Chip,
-  OutlinedInput,
-} from "@mui/material";
+import { Typography, Grid, Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 const Favorites = () => {
-     const theme = useTheme();
-    const { favorites, removeFavorite, matches } = useContext(FavoritesContext);
+  const theme = useTheme();
+  const { favorites } = useContext(FavoritesContext);
   return (
-   
     <Box
       sx={{
         overflow: "scroll",

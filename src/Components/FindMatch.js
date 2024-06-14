@@ -3,21 +3,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { FavoritesContext } from "../context/FavoritesContext";
 import SingleDog from "./SingleDog";
 
-import {
-  Typography,
-  Button,
-  Select,
-  MenuItem,
-  TextField,
-  FormControl,
-  InputLabel,
-  Grid,
-  Box,
-  CircularProgress,
-  Alert,
-  Chip,
-  OutlinedInput,
-} from "@mui/material";
+import { Typography, Button, Box } from "@mui/material";
 const FindMatch = ({ dogs }) => {
   const { getMatch, matches } = useContext(FavoritesContext);
   const [error, setError] = useState("");
@@ -55,7 +41,6 @@ const FindMatch = ({ dogs }) => {
           alignContent: "center",
           justifyContent: "center",
           alignItems: "center",
-   
         }}
       >
         <Button
@@ -69,7 +54,7 @@ const FindMatch = ({ dogs }) => {
 
         {matches && <Typography>Your Match Is: </Typography>}
         {matches ? (
-          <Box sx={{minWidth: "400px"}}>
+          <Box sx={{ minWidth: "400px" }}>
             <SingleDog dog={matches} match={true} />
           </Box>
         ) : null}

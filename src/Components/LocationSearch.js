@@ -9,15 +9,9 @@ import {
   Button,
   Select,
   MenuItem,
-  TextField,
   FormControl,
-  InputLabel,
-  Grid,
   Box,
-  CircularProgress,
-  Alert,
   Chip,
-  OutlinedInput,
 } from "@mui/material";
 const regions = [
   { name: "Alabama", abb: "AL" },
@@ -90,7 +84,6 @@ const LocationSearch = ({ search }) => {
   const [city, setCity] = useState("");
   const [states, setStates] = useState([]);
   const [error, setError] = useState("")
-  const [geoBoundingBox, setGeoBoundingBox] = useState(null);
   const theme = useTheme();
 
   const fetchLocationsBySearch = async (locationInfo) => {
@@ -112,9 +105,7 @@ const LocationSearch = ({ search }) => {
 
       const searchParams = {
         city,
-        // states: state ? [state] : [],
         states: states.map((state)=> state.abb),
-        geoBoundingBox,
       };
 
       const locations = await fetchLocationsBySearch(searchParams);
@@ -140,12 +131,6 @@ const LocationSearch = ({ search }) => {
          }
           
      };
-
-    
-
-      const handleBoundingBoxChange = (boundingBox) => {
-        setGeoBoundingBox(boundingBox);
-      };
 
 
         const removeState = (stateToRemove) => {

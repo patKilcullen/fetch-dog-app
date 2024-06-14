@@ -2,14 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axiosInstance from "../utils/axiosConfig";
 import SingleDog from "./SingleDog";
-
+import { Box } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 const SingleDogPage = () => {
   const { id } = useParams();
   const [dog, setDog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const theme = useTheme();
   useEffect(() => {
+
+
     const fetchDog = async () => {
       try {
         const response = await axiosInstance.post("/dogs", [id]);
@@ -33,20 +36,15 @@ const SingleDogPage = () => {
   }
 
   return (
-    <div>
-      {/* {dog && (
-        <>
-          <img src={dog.img} alt={dog.name} />
-          <h1>{dog.name}</h1>
-          <p>Breed: {dog.breed}</p>
-          <p>Age: {dog.age}</p>
-          <p>Zip Code: {dog.zip_code}</p>
-        </>
-      )} */}
+    <Box
+      sx={{
+    
+        backgroundColor: theme.background.default,
+      }}>
       {dog && (
-      <SingleDog dog={dog}/>
+      <SingleDog dog={dog} fullPage={true}/>
       )}
-    </div>
+    </Box>
   );
 };
 
