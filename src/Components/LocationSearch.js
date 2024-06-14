@@ -3,70 +3,86 @@ import React, { useState } from "react";
 import axiosInstance from "../utils/axiosConfig";
 import Map from "./Map";
 
-const stateAbbreviations = [
-  "AL",
-  "AK",
-  "AZ",
-  "AR",
-  "CA",
-  "CO",
-  "CT",
-  "DE",
-  "FL",
-  "GA",
-  "HI",
-  "ID",
-  "IL",
-  "IN",
-  "IA",
-  "KS",
-  "KY",
-  "LA",
-  "ME",
-  "MD",
-  "MA",
-  "MI",
-  "MN",
-  "MS",
-  "MO",
-  "MT",
-  "NE",
-  "NV",
-  "NH",
-  "NJ",
-  "NM",
-  "NY",
-  "NC",
-  "ND",
-  "OH",
-  "OK",
-  "OR",
-  "PA",
-  "RI",
-  "SC",
-  "SD",
-  "TN",
-  "TX",
-  "UT",
-  "VT",
-  "VA",
-  "WA",
-  "WV",
-  "WI",
-  "WY",
-  "AB",
-  "BC",
-  "MB",
-  "NB",
-  "NL",
-  "NS",
-  "NT",
-  "NU",
-  "ON",
-  "PE",
-  "QC",
-  "SK",
-  "YT",
+
+import {
+  Typography,
+  Button,
+  Select,
+  MenuItem,
+  TextField,
+  FormControl,
+  InputLabel,
+  Grid,
+  Box,
+  CircularProgress,
+  Alert,
+  Chip,
+  OutlinedInput,
+} from "@mui/material";
+const regions = [
+  { name: "Alabama", abb: "AL" },
+  { name: "Alaska", abb: "AK" },
+  { name: "Arizona", abb: "AZ" },
+  { name: "Arkansas", abb: "AR" },
+  { name: "California", abb: "CA" },
+  { name: "Colorado", abb: "CO" },
+  { name: "Connecticut", abb: "CT" },
+  { name: "Delaware", abb: "DE" },
+  { name: "Florida", abb: "FL" },
+  { name: "Georgia", abb: "GA" },
+  { name: "Hawaii", abb: "HI" },
+  { name: "Idaho", abb: "ID" },
+  { name: "Illinois", abb: "IL" },
+  { name: "Indiana", abb: "IN" },
+  { name: "Iowa", abb: "IA" },
+  { name: "Kansas", abb: "KS" },
+  { name: "Kentucky", abb: "KY" },
+  { name: "Louisiana", abb: "LA" },
+  { name: "Maine", abb: "ME" },
+  { name: "Maryland", abb: "MD" },
+  { name: "Massachusetts", abb: "MA" },
+  { name: "Michigan", abb: "MI" },
+  { name: "Minnesota", abb: "MN" },
+  { name: "Mississippi", abb: "MS" },
+  { name: "Missouri", abb: "MO" },
+  { name: "Montana", abb: "MT" },
+  { name: "Nebraska", abb: "NE" },
+  { name: "Nevada", abb: "NV" },
+  { name: "New Hampshire", abb: "NH" },
+  { name: "New Jersey", abb: "NJ" },
+  { name: "New Mexico", abb: "NM" },
+  { name: "New York", abb: "NY" },
+  { name: "North Carolina", abb: "NC" },
+  { name: "North Dakota", abb: "ND" },
+  { name: "Ohio", abb: "OH" },
+  { name: "Oklahoma", abb: "OK" },
+  { name: "Oregon", abb: "OR" },
+  { name: "Pennsylvania", abb: "PA" },
+  { name: "Rhode Island", abb: "RI" },
+  { name: "South Carolina", abb: "SC" },
+  { name: "South Dakota", abb: "SD" },
+  { name: "Tennessee", abb: "TN" },
+  { name: "Texas", abb: "TX" },
+  { name: "Utah", abb: "UT" },
+  { name: "Vermont", abb: "VT" },
+  { name: "Virginia", abb: "VA" },
+  { name: "Washington", abb: "WA" },
+  { name: "West Virginia", abb: "WV" },
+  { name: "Wisconsin", abb: "WI" },
+  { name: "Wyoming", abb: "WY" },
+  { name: "Alberta", abb: "AB" },
+  { name: "British Columbia", abb: "BC" },
+  { name: "Manitoba", abb: "MB" },
+  { name: "New Brunswick", abb: "NB" },
+  { name: "Newfoundland and Labrador", abb: "NL" },
+  { name: "Nova Scotia", abb: "NS" },
+  { name: "Northwest Territories", abb: "NT" },
+  { name: "Nunavut", abb: "NU" },
+  { name: "Ontario", abb: "ON" },
+  { name: "Prince Edward Island", abb: "PE" },
+  { name: "Quebec", abb: "QC" },
+  { name: "Saskatchewan", abb: "SK" },
+  { name: "Yukon", abb: "YT" }
 ];
 
 
@@ -97,7 +113,7 @@ const LocationSearch = ({ search }) => {
       const searchParams = {
         city,
         // states: state ? [state] : [],
-        states,
+        states: states.map((state)=> state.abb),
         geoBoundingBox,
       };
 
@@ -137,45 +153,49 @@ const LocationSearch = ({ search }) => {
         };
 
   return (
-    <div>
+    <Box>
       <h1>Filter by location: </h1>
       <form onSubmit={handleSearch}>
-        <div>
+        <FormControl sx={{ m: 1, width: 300 }}>
+          <Box>
+            <label>Selected States:</label>
+
+            {states.map((state) => (
+              <Chip
+                key={state.abb}
+                label={state.name}
+                onDelete={() => {
+                  removeState(state);
+                }}
+              />
+            ))}
+          </Box>
+          <Box>
+            <label>State:</label>
+            <Select value={states} onChange={handleAddState}>
+              {regions.map((state) => (
+                <MenuItem key={state.abb} value={state}>
+                  {state.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </Box>
+        </FormControl>
+        <Box>
           <label>City:</label>
           <input
             type="text"
             value={city}
             onChange={(e) => setCity(e.target.value)}
           />
-        </div>
-        <div>
-          <label>State:</label>
-          <select multiple={true} value={states} onChange={handleAddState}>
-            {stateAbbreviations.map((state) => (
-              <option key={state} value={state}>
-                {state}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label>Selected States:</label>
-          <ul>
-            {states.map((state) => (
-              <li key={state}>
-                {state}
-                <button type="button" onClick={() => removeState(state)}>
-                  x
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <button type="submit">Filter by Location</button>
+        </Box>
+        <Button type="submit" variant="contained">
+          Filter by Location
+        </Button>
       </form>
       {/* <Map onBoundingBoxChange={handleBoundingBoxChange} /> */}
-      <p>{error}</p>
-    </div>
+      <Typography sx={{color: "red"}}>{error}</Typography>
+    </Box>
   );
 };
 

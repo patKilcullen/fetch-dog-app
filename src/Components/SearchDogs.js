@@ -1,222 +1,38 @@
-// import React, { useState, useEffect } from "react";
-// import axiosInstance from "../utils/axiosConfig";
-
-// const SearchDogs = () => {
-//   const [breeds, setBreeds] = useState([]);
-
-//   const [results, setResults] = useState([]);
-
-//   const [total, setTotal] = useState(0);
-//   const [size, setSize] = useState(10); // Results per page
-//   const [from, setFrom] = useState(0); // Cursor for pagination
-
-//    useEffect(() => {
-//      fetchResults();
-//    }, [breeds, from]);
-
-//   const fetchResults = async () => {
-//     try {
-//     //   const response = await axiosInstance.get("/dogs/search", { breeds, size, from });
-//     const response = await axiosInstance.get("/dogs");
-//  console.log("RESPONSE: ", response)
-//       setResults(response.data.resultIds);
-//          setTotal(response.data.resultIds.length);
-//     } catch (error) {
-//       console.log("ERRROR: ", error);
-//     }
-//   };
-
-//   const handleNextPage = () => {
-//     if (from + size < total) {
-//       setFrom(from + size);
-//     }
-//   };
-
-//   const handlePrevPage = () => {
-//     if (from > 0) {
-//       setFrom(from - size);
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <h2>Search Dogs</h2>
-//       <form
-//         onSubmit={(e) => {
-//           e.preventDefault();
-//           setFrom(0);
-//           fetchResults();
-//         }}
-//       >
-//         <div>
-//           <label>Breeds:</label>
-//           <input
-//             type="text"
-//             value={breeds}
-//             onChange={(e) => setBreeds(e.target.value.split(","))}
-//           />
-//         </div>
-
-//         <button type="submit">Search</button>
-//       </form>
-
-//       <div>
-//         <h1>Results</h1>
-//         <p>Total Results: {total}</p>
-//         <ul>
-//           {results.map((id) => (
-//             <li key={id}>{id}</li>
-
-//           ))}
-//         </ul>
-//       </div>
-
-//       <div>
-//         <button onClick={handlePrevPage} disabled={from === 0}>
-//           Previous
-//         </button>
-//         <button onClick={handleNextPage} disabled={from + size >= total}>
-//           Next
-//         </button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default SearchDogs;
-
-// import React, { useState, useEffect } from "react";
-// import axiosInstance from "../utils/axiosConfig";
-
-// const SearchDogs = () => {
-
-//       const [breedList, setBreedList] = useState([]);
-//   const [breed, setBreed] = useState([]);
-
-//   const [results, setResults] = useState([]);
-//   const [total, setTotal] = useState(0);
-//   const [loading, setLoading] = useState(false);
-//   const [error, setError] = useState(null);
-//   const [size, setSize] = useState(25); // Results per page
-//   const [from, setFrom] = useState(0); // Cursor for pagination
-
-//   useEffect(() => {
-//     fetchResults();
-//   }, [breed, from]);
-
-// useEffect(() => {
-//   const fetchBreeds = async () => {
-//     try {
-//       const response = await axiosInstance.get("/dogs/breeds");
-//       setBreedList(response.data);
-//     } catch (error) {
-//    console.log("Failed to fetch breeds")
-//     }
-//   };
-
-//   fetchBreeds();
-// }, []);
-
-//   const fetchResults = async () => {
-//     setLoading(true);
-//     setError(null);
-
-//     const params = {
-//       breed,
-//       size,
-//       from,
-//     };
-
-//     try {
-//       const response = await axiosInstance.get("/dogs/search", { params });
-//       const { resultIds, total } = response.data;
-
-//       // Fetch full dog objects using the obtained IDs
-//       const dogResponse = await axiosInstance.post("/dogs", resultIds);
-//       setResults(dogResponse.data);
-//       setTotal(total);
-//     } catch (error) {
-//       setError("Failed to fetch results");
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   const handleNextPage = () => {
-//     if (from + size < total) {
-//       setFrom(from + size);
-//     }
-//   };
-
-//   const handlePrevPage = () => {
-//     if (from > 0) {
-//       setFrom(from - size);
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <h2>Search Dogs</h2>
-//       <form
-//         onSubmit={(e) => {
-//           e.preventDefault();
-//           setFrom(0); // Reset pagination on new search
-//           fetchResults();
-//         }}
-//       >
-//         <div>
-//           <label>Breeds:</label>
-//           <input
-//             type="text"
-//             value={breed}
-//             onChange={(e) => setBreed(e.target.value.split(","))}
-//           />
-//         </div>
-//         <button type="submit">Search</button>
-//       </form>
-
-//       {loading && <p>Loading...</p>}
-//       {error && <p>{error}</p>}
-
-//       <div>
-//         <h1>Results</h1>
-//         <p>Total {breed}s: {total}</p>
-//         <ul>
-//           {results.map((dog) => (
-//             <li key={dog.id}>
-//               <img src={dog.img} alt={dog.name} />
-//               <div>{dog.name}</div>
-//               <div>{dog.breed}</div>
-//               <div>{dog.age}</div>
-//               <div>{dog.zip_code}</div>
-//             </li>
-//           ))}
-//         </ul>
-
-//         <div>
-//           <button onClick={handlePrevPage} disabled={from === 0}>
-//             Previous
-//           </button>
-//           <button onClick={handleNextPage} disabled={from + size >= total}>
-//             Next
-//           </button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default SearchDogs;
-
 import React, { useState, useEffect, useContext } from "react";
 import axiosInstance from "../utils/axiosConfig";
-import { Link } from "react-router-dom";
-
-import { FavoritesContext } from "../context/FavoritesContext";
 
 import SingleDog from "./SingleDog";
 
 import LocationSearch from "./LocationSearch";
+
+import {
+  Typography,
+  Button,
+  Select,
+  MenuItem,
+  TextField,
+  FormControl,
+  InputLabel,
+  Grid,
+  Box,
+  CircularProgress,
+  Alert,
+  Chip,
+  OutlinedInput,
+} from "@mui/material";
+
+
+// const ITEM_HEIGHT = 48;
+// const ITEM_PADDING_TOP = 8;
+// const MenuProps = {
+//   PaperProps: {
+//     style: {
+//       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+//       width: 250,
+//     },
+//   },
+// };
+
 
 const SearchDogs = () => {
   const [breedList, setBreedList] = useState([]);
@@ -228,7 +44,6 @@ const SearchDogs = () => {
   const [size, setSize] = useState(25);
   const [from, setFrom] = useState(0);
 
-   const [zipCodes, setZipCodes] = useState([]);
    const [ageMin, setAgeMin] = useState("");
    const [ageMax, setAgeMax] = useState("");
 
@@ -281,8 +96,6 @@ const SearchDogs = () => {
 
       const dogResponse = await axiosInstance.post("/dogs", resultIds);
       setResults(dogResponse.data);
-         
-        
       setTotal(total);
     } catch (error) {
       setError("Failed to fetch results");
@@ -320,6 +133,7 @@ const SearchDogs = () => {
 
 
   const handleRemoveBreed = (breedToRemove) => {
+  
     setSelectedBreeds(
       selectedBreeds.filter((breed) => breed !== breedToRemove)
     );
@@ -330,104 +144,387 @@ const SearchDogs = () => {
 
 
   return (
-    <div>
+    <Box
+      sx={{
+        display: "flex",
+        alignContent: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+      }}
+    >
       <h2>Search Dogs</h2>
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          setFrom(0); // Reset pagination on new search
+          //   reset pagination
+          setFrom(0);
           fetchResults();
         }}
       >
-        <div>
-          <label>Selected Breeds:</label>
-          <ul>
-            {selectedBreeds.map((breed) => (
-              <li key={breed}>
-                {breed}
-                <button type="button" onClick={() => handleRemoveBreed(breed)}>
-                  x
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <Box>
+          <Typography variant="h6">Selected Breeds:</Typography>
 
-        <div>
-          <label>Breeds:</label>
-          <select
-            multiple={true}
-            value={selectedBreeds}
-            onChange={handleAddBreed}
-          >
-            {breedList.map((breed) => (
-              <option key={breed} value={breed}>
-                {breed}
-              </option>
-            ))}
-          </select>
-        </div>
+          {selectedBreeds.map((breed) => (
+            <Chip
+              key={breed}
+              label={breed}
+              onDelete={() => {
+                handleRemoveBreed(breed);
+              }}
+            />
+          ))}
+        </Box>
 
-        <div>
+        <Box>
+          <FormControl sx={{ m: 1, width: 300 }}>
+            <label>Breeds:</label>
+
+            <Select
+              //   multiple={true}
+              value={selectedBreeds}
+              onChange={handleAddBreed}
+            >
+              {breedList.map((breed) => (
+                <MenuItem key={breed} value={breed}>
+                  {breed}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
+
+        <Box>
           <label>Min Age:</label>
           <input
             type="number"
             value={ageMin}
             onChange={(e) => setAgeMin(e.target.value)}
           />
-        </div>
-        <div>
+        </Box>
+        <Box>
           <label>Max Age:</label>
           <input
             type="number"
             value={ageMax}
             onChange={(e) => setAgeMax(e.target.value)}
           />
-        </div>
+        </Box>
 
-        <button type="submit">Search</button>
+        <Button type="submit" variant="contained">
+          Search
+        </Button>
       </form>
       <LocationSearch search={handleLocationSearch} />
 
-      {loading && <p>Loading...</p>}
+      {loading && (
+        <Box sx={{ display: "flex", justifyContent: "center", m: 2 }}>
+          <CircularProgress />
+        </Box>
+      )}
       {error && <p>{error}</p>}
 
-      <div>
+      <Box>
         <h1>Pooch Results: </h1>
         <p>Total: {total}</p>
 
-        <div>
-          <label>Sort By:</label>
-          <select value={sort} onChange={(e) => setSort(e.target.value)}>
-            <option value="breed:asc">Breed (A - Z)</option>
-            <option value="breed:desc">Breed (Z - A)</option>
-            <option value="name:asc">Name (A - Z)</option>
-            <option value="name:desc">Name (Z - Z)</option>
-            <option value="age:asc">Age (youngest - oldest)</option>
-            <option value="age:desc">Age (oldest - youngest)</option>
-          </select>
-        </div>
+        <Box>
+          <FormControl sx={{ m: 1, width: 300 }}>
+            <InputLabel>Sort By</InputLabel>
+            <Select value={sort} onChange={(e) => setSort(e.target.value)}>
+              <MenuItem value="breed:asc">Breed (A - Z)</MenuItem>
+              <MenuItem value="breed:desc">Breed (Z - A)</MenuItem>
+              <MenuItem value="name:asc">Name (A - Z)</MenuItem>
+              <MenuItem value="name:desc">Name (Z - A)</MenuItem>
+              <MenuItem value="age:asc">Age (youngest - oldest)</MenuItem>
+              <MenuItem value="age:desc">Age (oldest - youngest)</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
 
         {results.map((dog) => (
-          //   <div key={dog.id}>
-          <div key={dog}>
-   
-              <SingleDog dog={dog} saved={false} />
-       
-          </div>
+          <Box key={dog}>
+            <SingleDog dog={dog} saved={false} />
+          </Box>
         ))}
 
-        <div>
-          <button onClick={handlePrevPage} disabled={from === 0}>
-            Previous
-          </button>
-          <button onClick={handleNextPage} disabled={from + size >= total}>
-            Next
-          </button>
-        </div>
-      </div>
-    </div>
+        
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          width: "100%",
+          maxWidth: "600px",
+          margin: "0 auto",
+          mt: 2,
+        }}
+      >
+        <Button
+          onClick={handlePrevPage}
+          variant="contained"
+          disabled={from === 0}
+          sx={{ width: "150px" }}
+        >
+          Previous
+        </Button>
+        <Button
+          onClick={handleNextPage}
+          variant="contained"
+          disabled={from + size >= total}
+          sx={{ width: "150px" }}
+        >
+          Next
+        </Button>
+      </Box>
+    </Box>
   );
 };
 
 export default SearchDogs;
+
+
+
+// import React, { useState, useEffect } from "react";
+// import axiosInstance from "../utils/axiosConfig";
+// import SingleDog from "./SingleDog";
+// import LocationSearch from "./LocationSearch";
+// import {
+//   Typography,
+//   Button,
+//   Select,
+//   MenuItem,
+//   TextField,
+//   FormControl,
+//   InputLabel,
+//   Grid,
+//   Box,
+//   CircularProgress,
+//   Alert,
+// } from "@mui/material";
+
+// const SearchDogs = () => {
+//   const [breedList, setBreedList] = useState([]);
+//   const [selectedBreeds, setSelectedBreeds] = useState([]);
+//   const [results, setResults] = useState([]);
+//   const [total, setTotal] = useState(0);
+//   const [loading, setLoading] = useState(false);
+//   const [error, setError] = useState(null);
+//   const [size, setSize] = useState(25);
+//   const [from, setFrom] = useState(0);
+//   const [ageMin, setAgeMin] = useState("");
+//   const [ageMax, setAgeMax] = useState("");
+//   const [sort, setSort] = useState("breed:asc");
+//   const [locations, setLocations] = useState([]);
+
+//   useEffect(() => {
+//     fetchBreeds();
+//     fetchResults();
+//   }, [selectedBreeds, from, sort, ageMax, ageMin, locations]);
+
+//   const fetchBreeds = async () => {
+//     try {
+//       const response = await axiosInstance.get("/dogs/breeds");
+//       setBreedList(response.data);
+//     } catch (error) {
+//       console.log("Failed to fetch breeds");
+//       setError(error);
+//     }
+//   };
+
+//   const fetchResults = async () => {
+//     setLoading(true);
+//     setError(null);
+
+//     const params = {
+//       breeds: selectedBreeds,
+//       size,
+//       from,
+//       zipCodes: locations,
+//       ageMin,
+//       ageMax,
+//       sort,
+//     };
+
+//     try {
+//       const response = await axiosInstance.get("/dogs/search", { params });
+//       const { resultIds, total } = response.data;
+//       const dogResponse = await axiosInstance.post("/dogs", resultIds);
+//       setResults(dogResponse.data);
+//       setTotal(total);
+//     } catch (error) {
+//       setError("Failed to fetch results");
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   const handleNextPage = () => {
+//     if (from + size < total) {
+//       setFrom(from + size);
+//     }
+//   };
+
+//   const handlePrevPage = () => {
+//     if (from > 0) {
+//       setFrom(from - size);
+//     }
+//   };
+
+//   const handleAddBreed = (event) => {
+//     if (selectedBreeds.length < 1) {
+//       setSelectedBreeds([event.target.value]);
+//     }
+
+//     if (
+//       !selectedBreeds.some((state) => state === event.target.value) &&
+//       event.target.value
+//     ) {
+//       setSelectedBreeds([...selectedBreeds, event.target.value]);
+//     }
+//   };
+
+//   const handleRemoveBreed = (breedToRemove) => {
+//     setSelectedBreeds(
+//       selectedBreeds.filter((breed) => breed !== breedToRemove)
+//     );
+//   };
+
+//   const handleLocationSearch = (locations) => {
+//     setLocations(locations);
+//   };
+
+//   return (
+//     <Box sx={{ p: 2 }}>
+//       <Typography variant="h4" gutterBottom>
+//         Search Dogs
+//       </Typography>
+//       <form
+//         onSubmit={(e) => {
+//           e.preventDefault();
+//           setFrom(0); // Reset pagination on new search
+//           fetchResults();
+//         }}
+//       >
+//         <Grid container spacing={2}>
+//           <Grid item xs={12}>
+//             <Typography variant="h6">Selected Breeds:</Typography>
+//             <ul>
+//               {selectedBreeds.map((breed) => (
+//                 <li key={breed}>
+//                   {breed}
+//                   <Button
+//                     b
+//                     onClick={() => handleRemoveBreed(breed)}
+//                   >
+//                     x
+//                   </Button>
+//                 </li>
+//               ))}
+//             </ul>
+//           </Grid>
+
+//           <Grid item xs={12}>
+//             <FormControl fullWidth>
+//               <InputLabel>Breeds</InputLabel>
+//               <Select multiple value={selectedBreeds} onChange={handleAddBreed}>
+//                 {breedList.map((breed) => (
+//                   <MenuItem key={breed} value={breed}>
+//                     {breed}
+//                   </MenuItem>
+//                 ))}
+//               </Select>
+//             </FormControl>
+//           </Grid>
+
+//           <Grid item xs={6}>
+//             <TextField
+//               label="Min Age"
+//               type="number"
+//               fullWidth
+//               value={ageMin}
+//               onChange={(e) => setAgeMin(e.target.value)}
+//             />
+//           </Grid>
+//           <Grid item xs={6}>
+//             <TextField
+//               label="Max Age"
+//               type="number"
+//               fullWidth
+//               value={ageMax}
+//               onChange={(e) => setAgeMax(e.target.value)}
+//             />
+//           </Grid>
+
+//           <Grid item xs={12}>
+//             <LocationSearch search={handleLocationSearch} />
+//           </Grid>
+
+//           <Grid item xs={12}>
+//             <Button variant="contained" type="submit" fullWidth>
+//               Search
+//             </Button>
+//           </Grid>
+//         </Grid>
+//       </form>
+
+//       {loading && (
+//         <Box sx={{ display: "flex", justifyContent: "center", m: 2 }}>
+//           <CircularProgress />
+//         </Box>
+//       )}
+//       {error && (
+//         <Box sx={{ m: 2 }}>
+//           <Alert severity="error">{error}</Alert>
+//         </Box>
+//       )}
+
+//       <Box sx={{ mt: 2 }}>
+//         <Typography variant="h5">Pooch Results:</Typography>
+//         <Typography>Total: {total}</Typography>
+//         <Grid container spacing={2}>
+//           <Grid item xs={12}>
+//             <FormControl fullWidth>
+//               <InputLabel>Sort By</InputLabel>
+//               <Select value={sort} onChange={(e) => setSort(e.target.value)}>
+//                 <MenuItem value="breed:asc">Breed (A - Z)</MenuItem>
+//                 <MenuItem value="breed:desc">Breed (Z - A)</MenuItem>
+//                 <MenuItem value="name:asc">Name (A - Z)</MenuItem>
+//                 <MenuItem value="name:desc">Name (Z - A)</MenuItem>
+//                 <MenuItem value="age:asc">Age (youngest - oldest)</MenuItem>
+//                 <MenuItem value="age:desc">Age (oldest - youngest)</MenuItem>
+//               </Select>
+//             </FormControl>
+//           </Grid>
+//         </Grid>
+
+//         <Grid container spacing={2} sx={{ mt: 2 }}>
+//           {results.map((dog) => (
+//             <Grid item xs={12} sm={6} md={4} key={dog.id}>
+//               <SingleDog dog={dog} saved={false} />
+//             </Grid>
+//           ))}
+//         </Grid>
+
+//         <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
+//           <Button
+//             variant="contained"
+//             onClick={handlePrevPage}
+//             disabled={from === 0}
+//           >
+//             Previous
+//           </Button>
+//           <Button
+//             variant="contained"
+//             onClick={handleNextPage}
+//             disabled={from + size >= total}
+//           >
+//             Next
+//           </Button>
+//         </Box>
+//       </Box>
+//     </Box>
+//   );
+// };
+
+// export default SearchDogs;

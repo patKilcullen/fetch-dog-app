@@ -19,7 +19,7 @@ const handleGetBreeds = ()=>{
     <div>
       {/* <div>hello {user.name}</div> */}
 
-<h1>Welcome</h1>
+{/* <h1>Welcome</h1> */}
 {/* <button onClick={handleGetBreeds}>Get breeds</button> */}
 <SearchDogs />
     </div>
