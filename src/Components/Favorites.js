@@ -24,21 +24,9 @@ import {
 import { useTheme } from "@mui/material/styles";
 const Favorites = () => {
      const theme = useTheme();
-    const { favorites, removeFavorite } = useContext(FavoritesContext);
+    const { favorites, removeFavorite, matches } = useContext(FavoritesContext);
   return (
-    // <Box
-    //   sx={{
-    //     display: "flex",
-    //     alignContent: "center",
-    //     justifyContent: "center",
-    //     flexDirection: "column",
-    //     backgroundColor: theme.background.default,
-    //     // backgroundColor: "green",
-    //     pt: "100px",
-    //     // padding: 2,
-    //     minHeight: "100vh",
-    //   }}
-    // >
+   
     <Box
       sx={{
         overflow: "scroll",

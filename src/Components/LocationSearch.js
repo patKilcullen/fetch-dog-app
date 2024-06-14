@@ -153,7 +153,7 @@ const LocationSearch = ({ search }) => {
         };
 
   return (
-    <Box>
+    <Box sx={{width: "40vw"}}>
       <h1>Filter by location: </h1>
       <form onSubmit={handleSearch}>
         <FormControl sx={{ m: 1, width: 300 }}>
@@ -163,7 +163,6 @@ const LocationSearch = ({ search }) => {
             {states.map((state) => (
               <Chip
                 color="secondary"
-          
                 sx={{
                   color: "white",
                   fontWeight: "bold",
@@ -179,13 +178,21 @@ const LocationSearch = ({ search }) => {
           </Box>
           <Box>
             <label>State:</label>
-            <Select value={states} onChange={handleAddState}>
-              {regions.map((state) => (
-                <MenuItem key={state.abb} value={state}>
-                  {state.name}
-                </MenuItem>
-              ))}
-            </Select>
+
+              <Select
+             
+                value={states}
+                onChange={handleAddState}
+                sx={{ backgroundColor: "white", width: "100px",  }}
+              >
+               
+                {regions.map((state) => (
+                  <MenuItem key={state.abb} value={state}>
+                    {state.name}
+                  </MenuItem>
+                ))}
+              </Select>
+      
           </Box>
         </FormControl>
         <Box>

@@ -27,7 +27,7 @@ const DogList = ({
         <Box>
           <Box>
             <Typography variant="body1">Total: {total}</Typography>
-            <FormControl sx={{ m: 1, width: 300 }}>
+            <FormControl sx={{ m: 1, width: 300,  backgroundColor: "white" }}>
               <InputLabel>Sort By</InputLabel>
               <Select value={sort} onChange={(e) => setSort(e.target.value)}>
                 <MenuItem value="breed:asc">Breed (A - Z)</MenuItem>

@@ -92,20 +92,16 @@ const SingleDog = ({ dog, saved, match }) => {
 
   return (
     <Card sx={{ maxWidth: 345, m: 2 }}>
-      {match && (
-        <Typography variant="h6" sx={{ textAlign: "center", mt: 2 }}>
-          Your match is...
-        </Typography>
-      )}
       <Link
         to={`/dog/${dog.id}`}
         style={{ textDecoration: "none", color: "inherit" }}
       >
         <CardMedia
           component="img"
-          height="140"
+          height="250"
           image={dog.img}
           alt={dog.name}
+          sx={{ objectFit: "contain", mt: 1 }}
         />
       </Link>
       <CardContent>

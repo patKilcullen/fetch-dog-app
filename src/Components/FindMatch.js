@@ -1,8 +1,7 @@
-import React, {useContext, useState, useEffect} from "react";
+import React, { useContext, useState, useEffect } from "react";
 
 import { FavoritesContext } from "../context/FavoritesContext";
 import SingleDog from "./SingleDog";
-
 
 import {
   Typography,
@@ -19,35 +18,23 @@ import {
   Chip,
   OutlinedInput,
 } from "@mui/material";
-const FindMatch = ({dogs}) => {
+const FindMatch = ({ dogs }) => {
+  const { getMatch, matches } = useContext(FavoritesContext);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-        const { getMatch, matches } = useContext(FavoritesContext);
-        const [error, setError] = useState("")
-const [loading, setLoading] = useState(false)
-useEffect(()=>{
-if(loading){
-    console.log("WE BE LOADINGGGGGGg")
-}
-},[loading])
-
-
-        const handleGetMatch = ()=>{
-            debugger
+  const handleGetMatch = () => {
     setLoading(true);
-try{
-    let dogIds = dogs.map((dog)=> dog.id)
+    try {
+      let dogIds = dogs.map((dog) => dog.id);
 
-
-    
-getMatch(dogIds);
-}catch(errer){
-setError(error)
-}finally{
-     setLoading(false);
-        
-}
-
-        }
+      getMatch(dogIds);
+    } catch (errer) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Box
@@ -55,11 +42,22 @@ setError(error)
         display: "flex",
         alignContent: "center",
         justifyContent: "center",
-        pt: "100px",
+        alignItems: "center",
+        pt: "20px",
+        border: "2px solid white",
       }}
     >
       {loading ? <h1>loading....</h1> : null}
-      <Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignContent: "center",
+          justifyContent: "center",
+          alignItems: "center",
+   
+        }}
+      >
         <Button
           onClick={handleGetMatch}
           variant="contained"
@@ -70,7 +68,11 @@ setError(error)
         </Button>
 
         {matches && <Typography>Your Match Is: </Typography>}
-        {matches ? <SingleDog dog={matches} match={true} /> : null}
+        {matches ? (
+          <Box sx={{minWidth: "400px"}}>
+            <SingleDog dog={matches} match={true} />
+          </Box>
+        ) : null}
 
         <Box>{error}</Box>
       </Box>

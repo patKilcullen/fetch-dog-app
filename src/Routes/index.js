@@ -48,8 +48,6 @@ import { Routes, Route } from "react-router-dom";
 import Login from "../Components/login";
 import Home from "../Components/Home";
 import LoggedIn from "../Components/LoggedIn";
-import Breeds from "../Components/Breeds";
-import SearchDogs from "../Components/SearchDogs";
 import Favorites from "../Components/Favorites";
 import SingleDogPage from "../Components/SingleDogPage"
 const AppRoutes = () => {
@@ -58,8 +56,6 @@ const AppRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<LoggedIn />}>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/breeds" element={<Breeds />} /> */}
-        {/* <Route path="/searchDogs" element={<SearchDogs />} /> */}
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/dog/:id" element={<SingleDogPage />} />
       </Route>

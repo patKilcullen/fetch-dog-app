@@ -1,75 +1,40 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import axiosInstance from "../utils/axiosConfig";
-
-import SingleDog from "./SingleDog";
 
 import LocationSearch from "./LocationSearch";
 
 import DogList from "./DogList";
-
-import {
-  Typography,
-  Button,
-  Select,
-  MenuItem,
-  TextField,
-  FormControl,
-  InputLabel,
-  Grid,
-  Box,
-  CircularProgress,
-  Alert,
-  Chip,
-  OutlinedInput,
-} from "@mui/material";
+import Search from "./Search";
+import { Typography, Box, CircularProgress } from "@mui/material";
 
 import { useTheme } from "@mui/material/styles";
 
-
-// const ITEM_HEIGHT = 48;
-// const ITEM_PADDING_TOP = 8;
-// const MenuProps = {
-//   PaperProps: {
-//     style: {
-//       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-//       width: 250,
-//     },
-//   },
-// };
-
-
 const SearchDogs = () => {
-     const theme = useTheme();
+  const theme = useTheme();
   const [breedList, setBreedList] = useState([]);
   const [selectedBreeds, setSelectedBreeds] = useState([]);
   const [results, setResults] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [size, setSize] = useState(25);
+  const [size, setSize] = useState(24); //set to 24 to fit grid evenly
   const [from, setFrom] = useState(0);
 
-   const [ageMin, setAgeMin] = useState("");
-   const [ageMax, setAgeMax] = useState("");
+  const [ageMin, setAgeMin] = useState("");
+  const [ageMax, setAgeMax] = useState("");
 
-     const [sort, setSort] = useState("breed:asc");
+  const [sort, setSort] = useState("breed:asc");
 
+  const [locations, setLocations] = useState([]);
 
-
-     const [locations, setLocations] = useState([]);
-
-       const handleLocationSearch = (locations) => {
-        
-          setLocations(locations);
-       };
-
-
+  const handleLocationSearch = (locations) => {
+    setLocations(locations);
+  };
 
   useEffect(() => {
     fetchBreeds();
     fetchResults();
-  }, [selectedBreeds, from, sort,ageMax,ageMin, locations]);
-  
+  }, [selectedBreeds, from, sort, ageMax, ageMin, locations]);
 
   const fetchBreeds = async () => {
     try {
@@ -77,7 +42,7 @@ const SearchDogs = () => {
       setBreedList(response.data);
     } catch (error) {
       console.log("Failed to fetch breeds");
-      setError(error)
+      setError(error);
     }
   };
 
@@ -92,7 +57,7 @@ const SearchDogs = () => {
       zipCodes: locations,
       ageMin,
       ageMax,
-      sort
+      sort,
     };
 
     try {
@@ -121,32 +86,24 @@ const SearchDogs = () => {
     }
   };
 
+  const handleAddBreed = (event) => {
+    if (selectedBreeds.length < 1) {
+      setSelectedBreeds([event.target.value]);
+    }
 
-     const handleAddBreed = (event) => {
-       if (selectedBreeds.length < 1) {
-         setSelectedBreeds([event.target.value]);
-       }
-
-       if (
-         !selectedBreeds.some((state) => state === event.target.value) &&
-         event.target.value
-       ) {
-         setSelectedBreeds([...selectedBreeds, event.target.value]);
-       }
-     };
-
-
+    if (
+      !selectedBreeds.some((state) => state === event.target.value) &&
+      event.target.value
+    ) {
+      setSelectedBreeds([...selectedBreeds, event.target.value]);
+    }
+  };
 
   const handleRemoveBreed = (breedToRemove) => {
-  
     setSelectedBreeds(
       selectedBreeds.filter((breed) => breed !== breedToRemove)
     );
   };
-
-
-  
-
 
   return (
     <Box
@@ -156,89 +113,35 @@ const SearchDogs = () => {
         justifyContent: "center",
         flexDirection: "column",
         backgroundColor: theme.background.default,
-        // backgroundColor: "green",
         pt: "100px",
-        // padding: 2,
         minHeight: "100vh",
       }}
     >
-      <h2>Search Dogs</h2>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          //   reset pagination
-          setFrom(0);
-          fetchResults();
-        }}
-      >
-        <Box>
-          <Typography variant="h6">Selected Breeds:</Typography>
+      <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+        <Search
+          selectedBreeds={selectedBreeds}
+          handleRemoveBreed={handleRemoveBreed}
+          handleAddBreed={handleAddBreed}
+          breedList={breedList}
+          ageMin={ageMin}
+          setAgeMin={setAgeMin}
+          ageMax={ageMax}
+          setAgeMax={setAgeMax}
+          setFrom={setFrom}
+          fetchResults={fetchResults}
+        />
 
-          {selectedBreeds.map((breed) => (
-            <Chip
-            color="secondary"
-              key={breed}
-              label={breed}
-              sx={{
-                color: "white",
-                fontWeight: "bold",
-                border: "2px solid white",
-              }}
-              onDelete={() => {
-                handleRemoveBreed(breed);
-              }}
-            />
-          ))}
-        </Box>
-
-        <Box>
-          <FormControl sx={{ m: 1, width: 300 }}>
-            <label>Breeds:</label>
-
-            <Select
-              //   multiple={true}
-              value={selectedBreeds}
-              onChange={handleAddBreed}
-            >
-              {breedList.map((breed) => (
-                <MenuItem key={breed} value={breed}>
-                  {breed}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Box>
-
-        <Box>
-          <label>Min Age:</label>
-          <input
-            type="number"
-            value={ageMin}
-            onChange={(e) => setAgeMin(e.target.value)}
-          />
-        </Box>
-        <Box>
-          <label>Max Age:</label>
-          <input
-            type="number"
-            value={ageMax}
-            onChange={(e) => setAgeMax(e.target.value)}
-          />
-        </Box>
-
-        <Button type="submit" variant="contained">
-          Search
-        </Button>
-      </form>
-      <LocationSearch search={handleLocationSearch} />
-
+        <LocationSearch search={handleLocationSearch} />
+      </Box>
       {loading && (
         <Box sx={{ display: "flex", justifyContent: "center", m: 2 }}>
           <CircularProgress />
         </Box>
       )}
       {error && <p>{error}</p>}
-      <Typography>Pooch Results: </Typography>
+      <Typography variant="h2" sx={{ mt: 5 }}>
+        Pooch Results:{" "}
+      </Typography>
 
       <DogList
         results={results}
@@ -255,6 +158,3 @@ const SearchDogs = () => {
 };
 
 export default SearchDogs;
-
-
-
