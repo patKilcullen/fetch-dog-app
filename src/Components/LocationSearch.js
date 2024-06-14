@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import axiosInstance from "../utils/axiosConfig";
-
+import Map from "./Map";
 
 const stateAbbreviations = [
   "AL",
@@ -74,6 +74,8 @@ const LocationSearch = ({ search }) => {
   const [city, setCity] = useState("");
   const [states, setStates] = useState([]);
   const [error, setError] = useState("")
+  const [geoBoundingBox, setGeoBoundingBox] = useState(null);
+
 
   const fetchLocationsBySearch = async (locationInfo) => {
     try {
@@ -95,7 +97,8 @@ const LocationSearch = ({ search }) => {
       const searchParams = {
         city,
         // states: state ? [state] : [],
-        states
+        states,
+        geoBoundingBox,
       };
 
       const locations = await fetchLocationsBySearch(searchParams);
@@ -110,11 +113,32 @@ const LocationSearch = ({ search }) => {
 
 
      const handleAddState = (event) => {
-       setStates([...states, event.target.value]);
+
+        if(states.length < 1){
+            setStates([event.target.value]);
+        }
+     
+         if (!states.some((state) => state === event.target.value) && event.target.value) {
+       
+           setStates([...states, event.target.value]);
+         }
+          
      };
+
+    
+
+      const handleBoundingBoxChange = (boundingBox) => {
+        setGeoBoundingBox(boundingBox);
+      };
+
+
+        const removeState = (stateToRemove) => {
+          setStates(states.filter((state) => state !== stateToRemove));
+        };
 
   return (
     <div>
+      <h1>Filter by location: </h1>
       <form onSubmit={handleSearch}>
         <div>
           <label>City:</label>
@@ -124,14 +148,6 @@ const LocationSearch = ({ search }) => {
             onChange={(e) => setCity(e.target.value)}
           />
         </div>
-        {/* <div>
-          <label>State:</label>
-          <input
-            type="text"
-            value={state}
-            onChange={(e) => setState(e.target.value)}
-          />
-        </div> */}
         <div>
           <label>State:</label>
           <select multiple={true} value={states} onChange={handleAddState}>
@@ -145,18 +161,19 @@ const LocationSearch = ({ search }) => {
         <div>
           <label>Selected States:</label>
           <ul>
-            {states.map((breed) => (
-              <li key={breed}>
-                {breed}
-                {/* <button type="button" onClick={() => handleRemoveBreed(breed)}>
+            {states.map((state) => (
+              <li key={state}>
+                {state}
+                <button type="button" onClick={() => removeState(state)}>
                   x
-                </button> */}
+                </button>
               </li>
             ))}
           </ul>
         </div>
         <button type="submit">Filter by Location</button>
       </form>
+      {/* <Map onBoundingBoxChange={handleBoundingBoxChange} /> */}
       <p>{error}</p>
     </div>
   );

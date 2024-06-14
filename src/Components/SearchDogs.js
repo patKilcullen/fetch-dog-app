@@ -303,9 +303,22 @@ const SearchDogs = () => {
     }
   };
 
-  const handleAddBreed = (event) => {
-    setSelectedBreeds([...selectedBreeds, event.target.value]);
-  };
+
+     const handleAddBreed = (event) => {
+       if (selectedBreeds.length < 1) {
+         setSelectedBreeds([event.target.value]);
+       }
+
+       if (
+         !selectedBreeds.some((state) => state === event.target.value) &&
+         event.target.value
+       ) {
+         setSelectedBreeds([...selectedBreeds, event.target.value]);
+       }
+     };
+
+
+
   const handleRemoveBreed = (breedToRemove) => {
     setSelectedBreeds(
       selectedBreeds.filter((breed) => breed !== breedToRemove)
@@ -355,15 +368,6 @@ const SearchDogs = () => {
           </select>
         </div>
 
-        {/* <div>
-          <label>Zip Codes:</label>
-          <input
-            type="text"
-            value={zipCodes}
-            onChange={(e) => setZipCodes(e.target.value.split(","))}
-          />
-        </div> */}
-
         <div>
           <label>Min Age:</label>
           <input
@@ -407,9 +411,9 @@ const SearchDogs = () => {
         {results.map((dog) => (
           //   <div key={dog.id}>
           <div key={dog}>
-            <Link to={`/dog/${dog.id}`}>
+   
               <SingleDog dog={dog} saved={false} />
-            </Link>
+       
           </div>
         ))}
 

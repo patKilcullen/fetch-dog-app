@@ -1,6 +1,6 @@
 import React, {useContext, useState, useEffect} from "react";
 
-
+import { Link } from "react-router-dom";
 import { FavoritesContext } from "../context/FavoritesContext";
 
 
@@ -31,8 +31,10 @@ const SingleDog = ({dog, saved, match}) => {
   return (
     <div>
       <h1>{match && "Your match is..."}</h1>
-      <h1>{dog.name}</h1>
-      <img src={dog.img} alt={dog.name} />
+      <Link to={`/dog/${dog.id}`}>
+        <h1>{dog.name}</h1>
+        <img src={dog.img} alt={dog.name} />
+      </Link>
       <div>{dog.breed}</div>
       <div>Age: {dog.age}</div>
       <div>Zip: {dog.zip_code}</div>
@@ -52,7 +54,7 @@ const SingleDog = ({dog, saved, match}) => {
         </button>
       ) : !saved && isFavorite ? (
         <p>heart</p>
-      ):(
+      ) : (
         <button onClick={handleRemoveDog}>Remove</button>
       )}
     </div>
