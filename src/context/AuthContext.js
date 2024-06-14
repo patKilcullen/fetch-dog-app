@@ -33,9 +33,11 @@ const AuthProvider = ({ children }) => {
   const login = async (name, email) => {
    
     try {
-      await axiosInstance.post("/auth/login", { name, email });
-      await checkAuthStatus(); // Re-check authentication status after login
+   const resposne =  await axiosInstance.post("/auth/logind", { name, email });
+   return resposne
+      // await checkAuthStatus(); // Re-check authentication status after login
     } catch (error) {
+      return error
       console.error("Login failed", error);
     }
   };

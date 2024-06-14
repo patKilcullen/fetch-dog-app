@@ -7,20 +7,24 @@ import { useTheme } from "@mui/material/styles";
 const Login = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
   const theme = useTheme();
 
+  // SUBMIT LOGIN REQUEST: if success, navigate home, otherwith show error
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try{
-    await login(name, email);
-      navigate("/");
-    }catch(error){
-
+    try {
+      const response = await login(name, email);
+      if (response.data === "OK") {
+        navigate("/");
+      } else {
+        setError(response.message);
+      }
+    } catch (error) {
+      setError(error);
     }
-  
   };
 
   return (
@@ -73,8 +77,12 @@ const Login = () => {
         <Button type="submit" variant="contained" color="primary" fullWidth>
           Login
         </Button>
-        {error && {error}}
       </Box>
+      {error && (
+        <Typography variant="h6" sx={{ color: "red" }} gutterBottom>
+          {error}
+        </Typography>
+      )}
     </Box>
   );
 };

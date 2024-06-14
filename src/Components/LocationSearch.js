@@ -99,20 +99,23 @@ const LocationSearch = ({ search }) => {
   };
 
     const handleSearch = async (event) => {
+  
     setError("");
       event.preventDefault();
 
       const searchParams = {
         city,
         states: states.map((state)=> state.abb),
+        size: 10000
       };
 
       const locations = await fetchLocationsBySearch(searchParams);
+
       if(locations.results.length < 1){
        setError("Location not found...")
       }
       const locationZips = locations.results.map((location) => location.zip_code);
-  
+
       search(locationZips);
     };
 
