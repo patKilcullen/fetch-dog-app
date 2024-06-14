@@ -77,7 +77,7 @@ const Home = () => {
           const response = await axiosInstance.get("/dogs/search", {
             params: { ...params, zipCodes: batch },
           });
-          const { resultIds, total } = response.data;
+          const { resultIds } = response.data;
           const dogResponse = await axiosInstance.post("/dogs", resultIds);
           allResults.push(...dogResponse.data);
         }
@@ -90,7 +90,7 @@ const Home = () => {
     } finally {
       setLoading(false);
     }
-  }, [selectedBreeds, size, from, locations, ageMin, ageMax, sort]);
+  }, [selectedBreeds, from, locations, ageMin, ageMax, sort]);
 
   useEffect(() => {
     fetchResults();
