@@ -14,6 +14,7 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     await login(name, email);
+ 
     navigate("/");
   };
 

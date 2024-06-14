@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 
 import axiosInstance from "../utils/axiosConfig";
-import Map from "./Map";
 
-import { useTheme } from "@mui/material/styles";
+
 import {
   Typography,
   Button,
@@ -84,7 +83,7 @@ const LocationSearch = ({ search }) => {
   const [city, setCity] = useState("");
   const [states, setStates] = useState([]);
   const [error, setError] = useState("")
-  const theme = useTheme();
+
 
   const fetchLocationsBySearch = async (locationInfo) => {
     try {

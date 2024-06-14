@@ -6,7 +6,7 @@ import { AuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
   const theme = useTheme();
-  const { logout, user } = useContext(AuthContext);
+  const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const logoutAndRedirectHome = () => {

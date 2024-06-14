@@ -31,9 +31,9 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (name, email) => {
+   
     try {
-      const data = await axiosInstance.post("/auth/login", { name, email });
-
+      await axiosInstance.post("/auth/login", { name, email });
       await checkAuthStatus(); // Re-check authentication status after login
     } catch (error) {
       console.error("Login failed", error);

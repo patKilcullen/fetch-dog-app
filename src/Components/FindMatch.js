@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 
 import { FavoritesContext } from "../context/FavoritesContext";
 import SingleDog from "./SingleDog";
