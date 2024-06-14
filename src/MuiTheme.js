@@ -13,8 +13,7 @@ const theme = createTheme({
     fontFamily: "Roboto, sans-serif",
   },
   background: {
-    default: "#f2d8dd", // Set your default background color here
-    // paper: "#ffffff", // Set your paper background color here
+    default: "#f2d8dd",
   },
 });
 

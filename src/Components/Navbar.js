@@ -9,6 +9,8 @@ const Navbar = () => {
   const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
+
+  // LOGOUT
   const logoutAndRedirectHome = () => {
     logout();
     navigate("/login");
@@ -32,6 +34,7 @@ const Navbar = () => {
           Puppy Picker
         </Typography>
         <Grid container spacing={2} justifyContent="center">
+          {/* SEARCH */}
           <Grid item>
             <Button
               color="inherit"
@@ -46,6 +49,8 @@ const Navbar = () => {
               Search
             </Button>
           </Grid>
+
+          {/* FAVORITES */}
           <Grid item>
             <Button
               color="inherit"
@@ -61,6 +66,7 @@ const Navbar = () => {
             </Button>
           </Grid>
         </Grid>
+        {/* LOGOUT: change position depending on scrren size */}
         <Box sx={{ position:{ xs: "relative", sm: "absolute" },  right: {xs: null, sm: theme.spacing(2) }}}>
           <Button
             color="inherit"

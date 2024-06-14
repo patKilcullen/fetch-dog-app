@@ -20,7 +20,11 @@ const Favorites = () => {
       }}
     >
       <Typography variant="h6">Favorite Dogs</Typography>
+      
+      {/* GET MATCH */}
       <FindMatch dogs={favorites} />
+
+      {/* ALL FAVORITES */}
       <Grid container spacing={2}>
         {favorites.map((dog) => (
           <Grid item xs={12} sm={6} md={4} key={dog.id}>

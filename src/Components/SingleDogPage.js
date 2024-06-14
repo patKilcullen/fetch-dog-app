@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axiosInstance from "../utils/axiosConfig";
 import SingleDog from "./SingleDog";
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+
+
+// FULL PAGE SINGLE DOG
 const SingleDogPage = () => {
   const { id } = useParams();
   const [dog, setDog] = useState(null);
@@ -13,6 +16,7 @@ const SingleDogPage = () => {
   useEffect(() => {
 
 
+    // GET DOG: by id in params
     const fetchDog = async () => {
       try {
         const response = await axiosInstance.post("/dogs", [id]);
@@ -28,7 +32,7 @@ const SingleDogPage = () => {
   }, [id]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <CircularProgress color="secondary" />;
   }
 
   if (error) {
@@ -42,6 +46,7 @@ const SingleDogPage = () => {
         backgroundColor: theme.background.default,
       }}>
       {dog && (
+        // return SingleDogItem with fullpage set to true
       <SingleDog dog={dog} fullPage={true}/>
       )}
     </Box>

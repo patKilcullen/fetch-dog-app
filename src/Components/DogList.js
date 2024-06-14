@@ -23,11 +23,12 @@ const DogList = ({
 }) => {
   return (
     <Box sx={{ height: "80vh", overflow: "scroll" }}>
+      {/* SORT MENU */}
       {results.length > 0 ? (
         <Box>
           <Box>
             <Typography variant="body1">Total: {total}</Typography>
-            <FormControl sx={{ m: 1, width: 300,  backgroundColor: "white" }}>
+            <FormControl sx={{ m: 1, width: 300, backgroundColor: "white" }}>
               <InputLabel>Sort By</InputLabel>
               <Select value={sort} onChange={(e) => setSort(e.target.value)}>
                 <MenuItem value="breed:asc">Breed (A - Z)</MenuItem>
@@ -40,6 +41,7 @@ const DogList = ({
             </FormControl>
           </Box>
 
+          {/* ALL DOGS */}
           <Grid container spacing={2}>
             {results.map((dog) => (
               <Grid item xs={12} sm={6} md={4} key={dog.id}>
@@ -63,8 +65,7 @@ const DogList = ({
               onClick={handlePrevPage}
               variant="contained"
               disabled={from === 0}
-
-            sx={{
+              sx={{
                 width: "150px",
                 color: "white",
                 fontWeight: "bold",

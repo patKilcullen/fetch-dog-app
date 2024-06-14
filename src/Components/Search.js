@@ -8,6 +8,8 @@ import {
   Chip,
 } from "@mui/material";
 
+
+// SEACH DOGS by breed and age
 const Search = ({
   selectedBreeds,
   handleRemoveBreed,
@@ -20,6 +22,8 @@ const Search = ({
   setFrom,
   fetchResults,
 }) => {
+
+  // SUBMIT SEARCH
   const handleSubmit = (e) => {
     e.preventDefault();
     // reset pagination
@@ -32,6 +36,7 @@ const Search = ({
       <form onSubmit={handleSubmit}>
         <h1>Search Dogs: </h1>
         <Box>
+          {/* ALL SELECTED BREEDS */}
           <Typography variant="h6">Selected Breeds:</Typography>
           {selectedBreeds.map((breed) => (
             <Chip
@@ -64,6 +69,8 @@ const Search = ({
               alignItems: "center",
             }}
           >
+
+            {/* BREED DROPDOWN MENU */}
             <label >Breeds:</label>
             <Select
               value={selectedBreeds}

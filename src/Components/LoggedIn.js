@@ -4,13 +4,10 @@ import { AuthContext } from "../context/AuthContext";
 
 import AppLayout from "./AppLayout";
 
+// LOGGED IN COMPONENT: to hold logged in routes/componenets
 const LoggedIn = () => {
-  const { isAuthenticated, loading } = useContext(AuthContext);
+  const { isAuthenticated } = useContext(AuthContext);
 
-
-  if (loading) {
-    return <div>Loading Puppies...</div>; 
-  }
 
   return isAuthenticated ? (
     <AppLayout>

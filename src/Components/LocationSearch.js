@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-
 import axiosInstance from "../utils/axiosConfig";
-
 
 import {
   Typography,
@@ -75,69 +73,74 @@ const regions = [
   { name: "Prince Edward Island", abb: "PE" },
   { name: "Quebec", abb: "QC" },
   { name: "Saskatchewan", abb: "SK" },
-  { name: "Yukon", abb: "YT" }
+  { name: "Yukon", abb: "YT" },
 ];
-
 
 const LocationSearch = ({ search }) => {
   const [city, setCity] = useState("");
   const [states, setStates] = useState([]);
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
 
 
+  // SEARCH LOCATIONS: API call
   const fetchLocationsBySearch = async (locationInfo) => {
     try {
       const response = await axiosInstance.post(
         "/locations/search",
         locationInfo
       );
-
       return response.data;
     } catch (error) {
       console.error("Failed to fetch locations by search:", error);
     }
   };
 
-    const handleSearch = async (event) => {
-  
+
+  // SERACH FOR LOCATION: 
+  const handleSearch = async (event) => {
     setError("");
-      event.preventDefault();
+    event.preventDefault();
 
-      const searchParams = {
-        city,
-        states: states.map((state)=> state.abb),
-        size: 10000
-      };
-
-      const locations = await fetchLocationsBySearch(searchParams);
-
-      if(locations.results.length < 1){
-       setError("Location not found...")
-      }
-      const locationZips = locations.results.map((location) => location.zip_code);
-
-      search(locationZips);
+    const searchParams = {
+      city,
+      states: states.map((state) => state.abb),
+      size: 10000, //ensure all possible zips returned
     };
 
+    const locations = await fetchLocationsBySearch(searchParams);
 
+    if (locations.results.length < 1) {
+      setError("Location not found...");
+    }
 
-     const handleAddState = (event) => {
+    // get zipCodes out of location results
+    const locationZips = locations.results.map((location) => location.zip_code);
 
-        if(states.length < 1){
-            setStates([event.target.value]);
-        }
-     
-         if (!states.some((state) => state === event.target.value) && event.target.value) {
-       
-           setStates([...states, event.target.value]);
-         }
-          
-     };
+    // SEARCH... search dogs function passed from parent
+    search(locationZips);
+  };
 
+  // ADD STATE
+  const handleAddState = (event) => {
+    //  if no state, add state to array
+    if (states.length < 1) {
+      setStates([event.target.value]);
+    }
 
-        const removeState = (stateToRemove) => {
-          setStates(states.filter((state) => state !== stateToRemove));
-        };
+    // don't add state to array if it already exists in array or it no state selected
+    // (second part prevents adding blank state to lest on second click)
+    if (
+      !states.some((state) => state === event.target.value) &&
+      event.target.value
+    ) {
+      setStates([...states, event.target.value]);
+    }
+  };
+
+  // REMOVE STATE
+  const removeState = (stateToRemove) => {
+    setStates(states.filter((state) => state !== stateToRemove));
+  };
 
   return (
     <Box
@@ -150,8 +153,9 @@ const LocationSearch = ({ search }) => {
     >
       <h1>Filter by Location: </h1>
       <form onSubmit={handleSearch}>
+        {/* SELECTED STATES LIST */}
         <FormControl
-          sx={{  width: 300, display: "flex", alignItems: "center", gap: "5px" }}
+          sx={{ width: 300, display: "flex", alignItems: "center", gap: "5px" }}
         >
           <Box>
             <Typography variant="h6">Selected States:</Typography>
@@ -173,8 +177,8 @@ const LocationSearch = ({ search }) => {
             ))}
           </Box>
           <Box>
+            {/* STATE DROPDOWN */}
             <label>State:</label>
-
             <Select
               value={states}
               onChange={handleAddState}
@@ -199,13 +203,17 @@ const LocationSearch = ({ search }) => {
         <Button
           type="submit"
           variant="contained"
-          sx={{ color: "white", fontWeight: "bold", border: "2px solid white", mt: 2 }}
+          sx={{
+            color: "white",
+            fontWeight: "bold",
+            border: "2px solid white",
+            mt: 2,
+          }}
           color="secondary"
         >
           Filter by Location
         </Button>
       </form>
-      {/* <Map onBoundingBoxChange={handleBoundingBoxChange} /> */}
       <Typography sx={{ color: "red" }}>{error}</Typography>
     </Box>
   );
