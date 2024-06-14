@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Login from "../Components/login";
-import Home from "../Components/HomeOLD";
+import Login from "../Components/Login";
+import Home from "../Components/Home";
 import LoggedIn from "../Components/LoggedIn";
 import Favorites from "../Components/Favorites";
 import SingleDogPage from "../Components/SingleDogPage"
