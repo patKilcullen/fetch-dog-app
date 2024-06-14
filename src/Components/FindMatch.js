@@ -4,6 +4,21 @@ import { FavoritesContext } from "../context/FavoritesContext";
 import SingleDog from "./SingleDog";
 
 
+import {
+  Typography,
+  Button,
+  Select,
+  MenuItem,
+  TextField,
+  FormControl,
+  InputLabel,
+  Grid,
+  Box,
+  CircularProgress,
+  Alert,
+  Chip,
+  OutlinedInput,
+} from "@mui/material";
 const FindMatch = ({dogs}) => {
 
         const { getMatch, matches } = useContext(FavoritesContext);
@@ -17,6 +32,7 @@ if(loading){
 
 
         const handleGetMatch = ()=>{
+            debugger
     setLoading(true);
 try{
     let dogIds = dogs.map((dog)=> dog.id)
@@ -33,18 +49,33 @@ setError(error)
 
         }
 
-  return <div>
-    {loading ?(
-         <h1>loading....</h1>
-     ) : null}
-    <div>
-    <button onClick={handleGetMatch}>{matches ? "Try another match" : "Get Match"}</button>
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        alignContent: "center",
+        justifyContent: "center",
+        pt: "100px",
+      }}
+    >
+      {loading ? <h1>loading....</h1> : null}
+      <Box>
+        <Button
+          onClick={handleGetMatch}
+          variant="contained"
+          sx={{ color: "white", fontWeight: "bold", border: "2px solid white" }}
+          color="secondary"
+        >
+          {matches ? "Try another match" : "Get Match"}
+        </Button>
 
-{matches ? <SingleDog dog={matches} match={true}/> : null}
+        {matches && <Typography>Your Match Is: </Typography>}
+        {matches ? <SingleDog dog={matches} match={true} /> : null}
 
-<div>{error}</div>
-</div>
-  </div>;
+        <Box>{error}</Box>
+      </Box>
+    </Box>
+  );
 };
 
 export default FindMatch;

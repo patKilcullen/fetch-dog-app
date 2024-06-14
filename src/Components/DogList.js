@@ -22,7 +22,7 @@ const DogList = ({
   size,
 }) => {
   return (
-    <Box sx={{height: "80vh", overflow: "scroll"}}>
+    <Box sx={{ height: "80vh", overflow: "scroll" }}>
       {results.length > 0 ? (
         <Box>
           <Box>
@@ -63,15 +63,28 @@ const DogList = ({
               onClick={handlePrevPage}
               variant="contained"
               disabled={from === 0}
-              sx={{ width: "150px" }}
+
+            sx={{
+                width: "150px",
+                color: "white",
+                fontWeight: "bold",
+                border: "2px solid white",
+              }}
+              color="secondary"
             >
               Previous
             </Button>
             <Button
               onClick={handleNextPage}
-              variant="contained"
               disabled={from + size >= total}
-              sx={{ width: "150px" }}
+              variant="contained"
+              sx={{
+                width: "150px",
+                color: "white",
+                fontWeight: "bold",
+                border: "2px solid white",
+              }}
+              color="secondary"
             >
               Next
             </Button>

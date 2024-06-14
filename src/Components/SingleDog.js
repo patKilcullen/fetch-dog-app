@@ -133,15 +133,26 @@ const SingleDog = ({ dog, saved, match }) => {
             size="small"
             onClick={handleSaveDog}
             disabled={disableSave || isFavorite}
+            sx={{
+              fontWeight: "bold",
+            }}
+            color="secondary"
           >
-            Save
+            Add to Favorites
           </Button>
         ) : !saved && isFavorite ? (
           <IconButton disabled>
             <FavoriteIcon color="error" />
           </IconButton>
         ) : (
-          <Button size="small" onClick={handleRemoveDog}>
+          <Button
+            size="small"
+            onClick={handleRemoveDog}
+            sx={{
+              fontWeight: "bold",
+            }}
+            color="secondary"
+          >
             Remove
           </Button>
         )}

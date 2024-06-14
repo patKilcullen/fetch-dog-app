@@ -157,6 +157,9 @@ const SearchDogs = () => {
         flexDirection: "column",
         backgroundColor: theme.background.default,
         // backgroundColor: "green",
+        pt: "100px",
+        // padding: 2,
+        minHeight: "100vh",
       }}
     >
       <h2>Search Dogs</h2>
@@ -173,8 +176,14 @@ const SearchDogs = () => {
 
           {selectedBreeds.map((breed) => (
             <Chip
+            color="secondary"
               key={breed}
               label={breed}
+              sx={{
+                color: "white",
+                fontWeight: "bold",
+                border: "2px solid white",
+              }}
               onDelete={() => {
                 handleRemoveBreed(breed);
               }}
@@ -230,7 +239,6 @@ const SearchDogs = () => {
       )}
       {error && <p>{error}</p>}
       <Typography>Pooch Results: </Typography>
-  
 
       <DogList
         results={results}

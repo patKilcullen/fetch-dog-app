@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import axiosInstance from "../utils/axiosConfig";
 import Map from "./Map";
 
-
+import { useTheme } from "@mui/material/styles";
 import {
   Typography,
   Button,
@@ -91,7 +91,7 @@ const LocationSearch = ({ search }) => {
   const [states, setStates] = useState([]);
   const [error, setError] = useState("")
   const [geoBoundingBox, setGeoBoundingBox] = useState(null);
-
+  const theme = useTheme();
 
   const fetchLocationsBySearch = async (locationInfo) => {
     try {
@@ -162,6 +162,13 @@ const LocationSearch = ({ search }) => {
 
             {states.map((state) => (
               <Chip
+                color="secondary"
+          
+                sx={{
+                  color: "white",
+                  fontWeight: "bold",
+                  border: "2px solid white",
+                }}
                 key={state.abb}
                 label={state.name}
                 onDelete={() => {
@@ -189,12 +196,17 @@ const LocationSearch = ({ search }) => {
             onChange={(e) => setCity(e.target.value)}
           />
         </Box>
-        <Button type="submit" variant="contained">
+        <Button
+          type="submit"
+          variant="contained"
+          sx={{ color: "white", fontWeight: "bold", border: "2px solid white" }}
+          color="secondary"
+        >
           Filter by Location
         </Button>
       </form>
       {/* <Map onBoundingBoxChange={handleBoundingBoxChange} /> */}
-      <Typography sx={{color: "red"}}>{error}</Typography>
+      <Typography sx={{ color: "red" }}>{error}</Typography>
     </Box>
   );
 };
