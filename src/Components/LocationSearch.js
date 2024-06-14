@@ -138,12 +138,21 @@ const LocationSearch = ({ search }) => {
         };
 
   return (
-    <Box sx={{width: "40vw"}}>
-      <h1>Filter by location: </h1>
+    <Box
+      sx={{
+        width: "40vw",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <h1>Filter by Location: </h1>
       <form onSubmit={handleSearch}>
-        <FormControl sx={{ m: 1, width: 300 }}>
+        <FormControl
+          sx={{  width: 300, display: "flex", alignItems: "center", gap: "5px" }}
+        >
           <Box>
-            <label>Selected States:</label>
+            <Typography variant="h6">Selected States:</Typography>
 
             {states.map((state) => (
               <Chip
@@ -164,20 +173,17 @@ const LocationSearch = ({ search }) => {
           <Box>
             <label>State:</label>
 
-              <Select
-             
-                value={states}
-                onChange={handleAddState}
-                sx={{ backgroundColor: "white", width: "100px",  }}
-              >
-               
-                {regions.map((state) => (
-                  <MenuItem key={state.abb} value={state}>
-                    {state.name}
-                  </MenuItem>
-                ))}
-              </Select>
-      
+            <Select
+              value={states}
+              onChange={handleAddState}
+              sx={{ backgroundColor: "white", width: "100px" }}
+            >
+              {regions.map((state) => (
+                <MenuItem key={state.abb} value={state}>
+                  {state.name}
+                </MenuItem>
+              ))}
+            </Select>
           </Box>
         </FormControl>
         <Box>
@@ -191,7 +197,7 @@ const LocationSearch = ({ search }) => {
         <Button
           type="submit"
           variant="contained"
-          sx={{ color: "white", fontWeight: "bold", border: "2px solid white" }}
+          sx={{ color: "white", fontWeight: "bold", border: "2px solid white", mt: 2 }}
           color="secondary"
         >
           Filter by Location

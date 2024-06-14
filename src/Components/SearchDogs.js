@@ -117,7 +117,17 @@ const SearchDogs = () => {
         minHeight: "100vh",
       }}
     >
-      <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+      {/* <Box sx={{ display: "flex", justifyContent: "space-around" }}> */}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-around",
+          flexDirection: { xs: "column", sm: "row" },
+          alignItems: { xs: "center", sm: "flex-start" },
+          gap: 2,
+          p: 2,
+        }}
+      >
         <Search
           selectedBreeds={selectedBreeds}
           handleRemoveBreed={handleRemoveBreed}

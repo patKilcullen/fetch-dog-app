@@ -48,13 +48,30 @@ const Search = ({
           ))}
         </Box>
 
-        <Box>
-          <FormControl sx={{ m: 1, width: 300 }}>
-            <label>Breeds:</label>
+        <Box
+          sx={{
+            display: "flex",
+            alignContent: "center",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <FormControl
+            sx={{
+              m: 1,
+              width: 300,
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <label >Breeds:</label>
             <Select
               value={selectedBreeds}
               onChange={handleAddBreed}
-              sx={{ backgroundColor: "white" }}
+              sx={{
+                backgroundColor: "white",
+                width: { xs: "200px", sm: "100%" },
+              }}
             >
               {breedList.map((breed) => (
                 <MenuItem key={breed} value={breed}>
