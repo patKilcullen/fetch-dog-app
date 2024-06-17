@@ -33,6 +33,7 @@ const AuthProvider = ({ children }) => {
         name,
         email,
       });
+      checkAuthStatus()
       return resposne;
     } catch (error) {
       console.error("Login failed", error);

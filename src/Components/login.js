@@ -3,7 +3,7 @@ import { AuthContext } from "../context/AuthContext.js";
 import { useNavigate } from "react-router-dom";
 import { Box, Typography, TextField, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import logo from '../fetch-logo.jpeg'
+import logo from "../fetch-logo.jpeg";
 
 const Login = () => {
   const [name, setName] = useState("");
@@ -18,6 +18,7 @@ const Login = () => {
     event.preventDefault();
     try {
       const response = await login(name, email);
+      debugger
       if (response.data === "OK") {
         navigate("/");
       } else {

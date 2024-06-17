@@ -1,14 +1,16 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Login from "../Components/login";
 import Home from "../Components/Home";
 import LoggedIn from "../Components/LoggedIn";
 import Favorites from "../Components/Favorites";
 import SingleDogPage from "../Components/SingleDogPage"
+
+import Login from '../Components/Login'
+
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
+   <Route path="/login" element={<Login />}></Route>
       {/* LOGGED IN ROUTES */}
       <Route path="/" element={<LoggedIn />}>
         <Route path="/" element={<Home />} />
