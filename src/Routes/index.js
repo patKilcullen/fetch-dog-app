@@ -5,7 +5,7 @@ import LoggedIn from "../Components/LoggedIn";
 import Favorites from "../Components/Favorites";
 import SingleDogPage from "../Components/SingleDogPage"
 
-import Login from '../Components/Login'
+import Login from '../Components/login'
 
 const AppRoutes = () => {
   return (
