@@ -29,12 +29,16 @@ const AuthProvider = ({ children }) => {
   // LOGIN
   const login = async (name, email) => {
     try {
-      const resposne = await axiosInstance.post("/auth/login", {
+      const response = await axiosInstance.post("/auth/login", {
         name,
         email,
       });
-      checkAuthStatus()
-      return resposne;
+  if (response.status === 200) {
+    setIsAuthenticated(true);
+  } else {
+    setIsAuthenticated(false);
+  }
+      return response;
     } catch (error) {
       console.error("Login failed", error);
       return error;
